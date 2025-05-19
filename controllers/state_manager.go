@@ -102,6 +102,7 @@ var gpuStateLabels = map[string]map[string]string{
 		"nvidia.com/gpu.deploy.cc-manager":            "true",
 	},
 	gpuWorkloadConfigVMVgpu: {
+		"nvidia.com/gpu.deploy.container-toolkit":     "true",
 		"nvidia.com/gpu.deploy.sandbox-device-plugin": "true",
 		"nvidia.com/gpu.deploy.vgpu-manager":          "true",
 		"nvidia.com/gpu.deploy.vgpu-device-manager":   "true",
