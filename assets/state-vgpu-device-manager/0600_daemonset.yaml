@@ -45,13 +45,24 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: LD_LIBRARY_PATH
+          value: /run/nvidia/driver/lib:/run/nvidia/driver/lib64
         - name: CONFIG_FILE
           value: "/vgpu-config/config.yaml"
+        - name: MIG_PARTED_CONFIG_FILE
+          value: "/mig-parted-config/config.yaml"
+        - name: GPU_CLIENTS_FILE
+          value: "/gpu-clients/clients.yaml"
         securityContext:
           privileged: true
         volumeMounts:
         - mountPath: /vgpu-config
           name: vgpu-config
+        - mountPath: /mig-parted-config
+          name: mig-parted-config
+          mountPropagation: HostToContainer
+        - mountPath: /gpu-clients
+          name: gpu-clients
         - mountPath: /sys
           name: host-sys
         - name: driver-install-dir
@@ -73,3 +84,9 @@ spec:
         hostPath:
           path: /run/nvidia/validations
           type: DirectoryOrCreate
+      - name: mig-parted-config
+        configMap:
+          name: "FILLED_BY_OPERATOR"
+      - name: gpu-clients
+        configMap:
+          name: "FILLED_BY_OPERATOR"

@@ -2068,6 +2068,28 @@ func TransformVGPUDeviceManager(obj *appsv1.DaemonSet, config *gpuv1.ClusterPoli
 		break
 	}
 
+	// set ConfigMap name for "mig-parted-config" Volume
+	for i, vol := range obj.Spec.Template.Spec.Volumes {
+		if !strings.Contains(vol.Name, "mig-parted-config") {
+			continue
+		}
+
+		name := MigPartedDefaultConfigMapName
+		obj.Spec.Template.Spec.Volumes[i].ConfigMap.Name = name
+		break
+	}
+
+	// set ConfigMap name for "gpu-clients" Volume
+	for i, vol := range obj.Spec.Template.Spec.Volumes {
+		if !strings.Contains(vol.Name, "gpu-clients") {
+			continue
+		}
+
+		name := MigDefaultGPUClientsConfigMapName
+		obj.Spec.Template.Spec.Volumes[i].ConfigMap.Name = name
+		break
+	}
+
 	// set name of default vGPU device configuration. The default configuration is applied if the node
 	// is not labelled with a specific configuration
 	defaultConfig := VgpuDMDefaultConfigName
