@@ -62,6 +62,9 @@ spec:
           imagePullPolicy: IfNotPresent
           name: nvidia-sandbox-device-plugin-ctr
           command: ["nvidia-kubevirt-gpu-device-plugin"]
+          env:
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: void
           securityContext:
             privileged: true
           volumeMounts:
