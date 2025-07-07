@@ -137,7 +137,7 @@ spec:
         startupProbe:
           exec:
             command:
-              [sh, -c, 'nvidia-smi && touch /run/nvidia/validations/.driver-ctr-ready']
+              [sh, -c, 'echo "Not running nvidia-smi as GPUs should be bound to the vfio-pci driver" && touch /run/nvidia/validations/.driver-ctr-ready']
           initialDelaySeconds: 60
           failureThreshold: 120
           successThreshold: 1
